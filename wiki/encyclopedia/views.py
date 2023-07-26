@@ -16,4 +16,6 @@ def loadEntry(request, title):
         "content" : markdown2.markdown(util.get_entry(title))
         })
     else:
-        return render(request, "encyclopedia/404.html")
+        return render(request, "encyclopedia/404.html", {
+            "title" : title
+        })
