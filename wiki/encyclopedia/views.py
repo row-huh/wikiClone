@@ -10,7 +10,7 @@ def index(request):
     
 # whenever someone adds a title at /wiki/title, will load an html related to that entry
 def loadEntry(request, title):
-    if util.get_entry(title):
-        ...
-    else:
-        ...
+    return render(request, "encyclopedia/title.html", {
+        "title" : title,
+        "content" : util.get_entry(title)
+        })
