@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import markdown2
 from . import util
+from django.http import HttpResponse
 
 
 def index(request):
@@ -10,14 +11,12 @@ def index(request):
     
 # whenever someone adds a title at /wiki/title, will load an html related to that entry
 def loadEntry(request, title):
-    if title in util.list_entries():
-        return render(request, util.list_entries())
+    if str(title).casefold() in util.list_entries():
         return render(request, "encyclopedia/title.html", {
         "title" : title,
         "content" : markdown2.markdown(util.get_entry(title))
         })
     else:
-        return render(util.list_entries())
         return render(request, "encyclopedia/404.html", {
             "title" : title
         })
@@ -35,5 +34,3 @@ def searchEntry(request, query):
     return render(request, "encyclopedia/searchpage.html"), {
         "displaylist" : display_list
     }
-    
-    
