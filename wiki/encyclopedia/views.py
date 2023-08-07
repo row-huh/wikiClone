@@ -10,7 +10,7 @@ def index(request):
     
 # whenever someone adds a title at /wiki/title, will load an html related to that entry
 def loadEntry(request, title):
-    if str(title).casefold in str(util.list_entries()):
+    if str(title).casefold in [entry.casefold() for entry in util.list_entries()]:
         return render(request, "encyclopedia/title.html", {
         "title" : title,
         "content" : markdown2.markdown(util.get_entry(title))
@@ -19,6 +19,7 @@ def loadEntry(request, title):
         return render(request, "encyclopedia/404.html", {
             "title" : title
         })
+
 
 def searchEntry(request, query):
     if query in util.list_entries():
