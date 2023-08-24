@@ -21,16 +21,10 @@ def loadEntry(request, title):
         })
 
 
-def searchEntry(request, query):
-    if query in util.list_entries():
-        return render(request, "encyclopedia/title.html"), {
-            "title" : query,
-            "content" : markdown2.markdown(util.get_entry(query))
-        }
-    display_list = []
-    for entry in util.list_entries():
-        if query in entry:
-            display_list.append(query)
-    return render(request, "encyclopedia/searchpage.html"), {
-        "displaylist" : display_list
-    }
+def searchEntry(request):
+    q = request.GET.get('q', False)
+    if q in util.list_entries():
+        return render(request, "encyclopedia/title.html", {
+            "title" : q,
+            "content" : markdown2.markdown(util.get_entry(q))
+        })
