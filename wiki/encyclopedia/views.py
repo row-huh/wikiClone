@@ -22,9 +22,14 @@ def loadEntry(request, title):
 
 
 def searchEntry(request):
-    q = request.GET.get('q', False)
-    if q in util.list_entries():
+    q = request.GET.get('q', '')
+    entries = [entry.lower() for entry in util.list_entries()]
+    if q in entries:
         return render(request, "encyclopedia/title.html", {
             "title" : q,
             "content" : markdown2.markdown(util.get_entry(q))
+        })
+    else:
+        return render(request, "encyclopedia/404.html", {
+            "title" : q
         })
