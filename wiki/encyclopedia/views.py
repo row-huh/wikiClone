@@ -27,10 +27,11 @@ def searchEntry(request, query):
             "title" : query,
             "content" : markdown2.markdown(util.get_entry(query))
         }
-    display_list = []
-    for entry in util.list_entries():
-        if query in entry:
-            display_list.append(query)
-    return render(request, "encyclopedia/searchpage.html"), {
-        "displaylist" : display_list
-    }
+    else:
+        display_list = []
+        for entry in util.list_entries():
+            if query in entry:
+                display_list.append(query)
+        return render(request, "encyclopedia/searchpage.html"), {
+            "displaylist" : display_list
+        }
