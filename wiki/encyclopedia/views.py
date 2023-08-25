@@ -47,5 +47,6 @@ def searchEntry(request):
                 "title" : q
             })
 
-def createEntry():
+def createEntry(request):
+    return render(request, "encyclopedia/createpage.html")
     
