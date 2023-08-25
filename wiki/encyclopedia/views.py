@@ -24,15 +24,14 @@ def loadEntry(request, title):
 def searchEntry(request):
     q = request.GET.get('q', 'not found')
     entries = [entry.lower() for entry in util.list_entries()]
-    # If the query matches the name of an encyclopedia entry, the user should be redirected to that entry’s page.
+
     if q in entries:
         return render(request, "encyclopedia/title.html", {
             "title" : q,
             "content" : markdown2.markdown(util.get_entry(q))
         })
-    # If the query does not match the name of an encyclopedia entry, the user should instead be taken to a search results page that displays 
-    # a list of all encyclopedia entries that have the query as a substring. For example, if the search query were ytho, then Python should 
-    # appear in the search results.
+
+
     else:
         matches = []
         for entry in entries:
