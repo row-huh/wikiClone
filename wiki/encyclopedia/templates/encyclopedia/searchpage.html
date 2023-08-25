@@ -9,7 +9,7 @@
 
     <ul>
         {% for item in displaylist %}
-            <li><a href="/wiki/{{ item }}">{{ item }}</a></li>
+            <li><a href="/wiki/{{ item }}">{{ item.capitalize }}</a></li>
         {% endfor %}
     </ul>
 
