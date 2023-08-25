@@ -7,7 +7,9 @@ def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
     })
-    
+
+
+  
 # whenever someone adds a title at /wiki/title, will load an html related to that entry
 def loadEntry(request, title):
     if title.casefold() in [entry.casefold() for entry in util.list_entries()]:
@@ -21,6 +23,7 @@ def loadEntry(request, title):
         })
 
 
+
 def searchEntry(request):
     q = request.GET.get('q', '')
     entries = [entry.lower() for entry in util.list_entries()]
@@ -30,8 +33,6 @@ def searchEntry(request):
             "title" : q,
             "content" : markdown2.markdown(util.get_entry(q))
         })
-
-
     else:
         matches = []
         for entry in entries:
@@ -46,13 +47,15 @@ def searchEntry(request):
                 "title" : q
             })
 
+
+
 def createEntry(request):
     title = request.GET.get('title', '')
     content = request.GET.get('content', '')
     entries = [entry.lower() for entry in util.list_entries()]
     if title in entries:
-        # throw some error
+        # throw some error because you cannot create two entries of the same name
         ...
     else: 
-        # publish page
-        ...    
+        # publish page and redirect the user to that page
+        ...
