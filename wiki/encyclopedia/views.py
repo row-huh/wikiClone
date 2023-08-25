@@ -22,7 +22,7 @@ def loadEntry(request, title):
 
 
 def searchEntry(request):
-    q = request.GET.get('q', '')
+    q = request.GET.get('q', 'not found')
     entries = [entry.lower() for entry in util.list_entries()]
     # If the query matches the name of an encyclopedia entry, the user should be redirected to that entry’s page.
     if q in entries:
@@ -39,10 +39,10 @@ def searchEntry(request):
             if q in entry:
                 matches.append(entry)
         if matches:
-            render(request, "encyclopedia/searchpage.html", {
+            return render(request, "encyclopedia/searchpage.html", {
                 "displaylist" : matches
             })
         else:
-            render(request, "encyclopedia/404.html", {
+            return render(request, "encyclopedia/404.html", {
                 "title" : q
             })
