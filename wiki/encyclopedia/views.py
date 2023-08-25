@@ -22,7 +22,7 @@ def loadEntry(request, title):
 
 
 def searchEntry(request):
-    q = request.GET.get('q', 'not found')
+    q = request.GET.get('q', '')
     entries = [entry.lower() for entry in util.list_entries()]
 
     if q in entries:
@@ -47,5 +47,12 @@ def searchEntry(request):
             })
 
 def createEntry(request):
-    return render(request, "encyclopedia/createpage.html")
-    
+    title = request.GET.get('title', '')
+    content = request.GET.get('content', '')
+    entries = [entry.lower() for entry in util.list_entries()]
+    if title in entries:
+        # throw some error
+        ...
+    else: 
+        # publish page
+        ...    
