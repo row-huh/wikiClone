@@ -1,4 +1,0 @@
-o
-
-���d��@ddlmZddlmZedejdd�edejdd�ed	ejd
-d�gZdS)�)�path�)�viewsZwiki�index)�namezwiki/<str:title>�titlezwiki/?q=<str:entry>�searchN)�django.urlsr�rrZ	loadEntryZsearchEntry�urlpatterns�rr�kC:\Users\rohaa\OneDrive\Documents\Rokage\coding-stuff\practice_projects\wikiClone\wiki\encyclopedia\urls.py�<module>s�
