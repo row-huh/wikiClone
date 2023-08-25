@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import markdown2
 from . import util
-
+from django.http import HttpResponse
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -48,14 +48,23 @@ def searchEntry(request):
             })
 
 
-
+def create(request):
+    return render(request, "encyclopedia/createpage.html")
+    
+    
 def createEntry(request):
     title = request.GET.get('title', '')
     content = request.GET.get('content', '')
     entries = [entry.lower() for entry in util.list_entries()]
     if title in entries:
         # throw some error because you cannot create two entries of the same name
-        ...
+        return HttpResponse("Page already exists, try again")
     else: 
-        # publish page and redirect the user to that page
-        ...
+        f = open("entries/"+title+".md", 'w')
+        f.write(content) 
+        f.close()
+        return render(request, "encyclopedia/title.html", {
+            "title" : title,
+            "content" : markdown2.markdown(util.get_entry(title))
+        })
+        

@@ -6,10 +6,11 @@ Create Page
 
 {% block body %}
 <h1>Create Page</h1>
-<form method="GET" action={% url 'create' %}>
+<form method="GET" action={% url 'createentry' %}>
     <h3>Enter title: </h3>
     <input name="title" type="text" placeholder="Title">
     <h3>Enter markdown: </h3>
     <textarea name="content" type="textarea" placeholder="This is where epic details about the title are written"></textarea>
+    <input type="submit">
 </form>
 {% endblock %}
