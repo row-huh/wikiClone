@@ -74,3 +74,6 @@ def randompage(request):
         "title" : randompage,
         "content" : markdown2.markdown(util.get_entry(randompage))
     })
+    
+def editpage(request):
+    return render(request, )
