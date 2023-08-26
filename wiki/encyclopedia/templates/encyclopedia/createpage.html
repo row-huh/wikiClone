@@ -1,5 +1,23 @@
 {% extends "encyclopedia/layout.html" %}
 
+{% block extracss %}
+<style>
+    textarea {
+        height: 50vh;
+        width: 90%;
+    }
+
+    #submit {
+        height: 40px;
+        width: 70vh;
+        margin-left: 400px;
+        background-color: green;
+        color: white;
+    }
+
+</style>
+{% endblock %}
+
 {% block title %}
 Create Page
 {% endblock %}
@@ -8,9 +26,9 @@ Create Page
 <h1>Create Page</h1>
 <form method="GET" action={% url 'createentry' %}>
     <h3>Enter title: </h3>
-    <input name="title" type="text" placeholder="Title">
+    <input name="title" type="text" placeholder="Here goes the title!">
     <h3>Enter markdown: </h3>
-    <textarea id="texta" name="content"></textarea>
-    <input type="submit">
+    <textarea id="texta" name="content" placeholder="This is where you can write epic details about your title!"></textarea>
+    <input id="submit" type="submit">
 </form>
 {% endblock %}
