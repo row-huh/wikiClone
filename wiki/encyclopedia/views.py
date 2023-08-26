@@ -75,5 +75,8 @@ def randompage(request):
         "content" : markdown2.markdown(util.get_entry(randompage))
     })
     
-def editpage(request):
-    return render(request, )
+def editpage(request, title):
+    return render(request, "encyclopedia/edit.html", {
+        "title" : title, 
+        "content" : markdown2.markdown(util.get_entry(title))
+    })
