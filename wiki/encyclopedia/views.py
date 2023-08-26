@@ -68,7 +68,7 @@ def createEntry(request):
         })
 
 
-def random(request):
+def randompage(request):
     randompage = random.choice(util.list_entries())
     return render(request, "encyclopedia/title.html", {
         "title" : randompage,
