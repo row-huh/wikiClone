@@ -89,9 +89,10 @@ def saveEntry(request):
         title = request.POST["title"]
         content = request.POST["content"]
         f = open(os.path.join('entries/', title + '.md'), 'w')
+        f.seek(0)
         f.write(content)
         f.close()
-        return render(request, "encyclopedia/title.html"), {
+        return render(request, "encyclopedia/title.html", {
             "title" : title,
             "content" : markdown2.markdown(util.get_entry(title))
         })
