@@ -3,6 +3,8 @@ import markdown2
 from . import util
 from django.http import HttpResponse
 import random
+import os
+
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -78,5 +80,18 @@ def randompage(request):
 def editpage(request, title):
     return render(request, "encyclopedia/edit.html", {
         "title" : title, 
-        "content" : markdown2.markdown(util.get_entry(title))
+        # not converting to markdown because the user needs to see .md structure
+        "content" : util.get_entry(title)
     })
+    
+def saveEntry(request):
+    if request.method == "POST":
+        title = request.POST["title"]
+        content = request.POST["content"]
+        f = open(os.path.join('entries/', title + '.md'), 'w')
+        f.write(content)
+        f.close()
+        return render(request, "encyclopedia/title.html"), {
+            "title" : title,
+            "content" : markdown2.markdown(util.get_entry(title))
+        })
