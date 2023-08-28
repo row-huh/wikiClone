@@ -24,7 +24,8 @@ Create Page
 
 {% block body %}
 <h1>Create Page</h1>
-<form method="POST" action={% url 'saveentry' %}>
+<form method="POST" action={% url 'createentry' %}>
+    {% csrf_token %}
     <h3>Enter title: </h3>
     <input name="title" type="text" placeholder="Here goes the title!">
     <h3>Enter markdown: </h3>

@@ -54,20 +54,21 @@ def create(request):
 
  
 def createEntry(request):
-    title = request.GET.get('title', '')
-    content = request.GET.get('content', '')
-    entries = [entry.lower() for entry in util.list_entries()]
-    if title in entries:
-        # throw some error because you cannot create two entries of the same name
-        return HttpResponse("Page already exists, try again")
-    else: 
-        f = open("entries/"+title+".md", 'w')
-        f.write(content) 
-        f.close()
-        return render(request, "encyclopedia/title.html", {
-            "title" : title,
-            "content" : markdown2.markdown(util.get_entry(title))
-        })
+    if request.method == "POST":
+        title = request.POST['title']
+        content = request.POST['content']
+        entries = [entry.lower() for entry in util.list_entries()]
+        if title in entries:
+            # throw some error because you cannot create two entries of the same name
+            return HttpResponse("Page already exists, try again")
+        else: 
+            f = open("entries/"+title+".md", 'w')
+            f.write(content) 
+            f.close()
+            return render(request, "encyclopedia/title.html", {
+                "title" : title,
+                "content" : markdown2.markdown(util.get_entry(title))
+            })
 
 
 def randompage(request):
