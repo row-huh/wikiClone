@@ -8,4 +8,8 @@
 <p>
     {{ content|safe }}
 </p>
+
+<form>
+    <a href="{% url 'edit' title %}">Edit Page</a>
+</form>
 {% endblock %}

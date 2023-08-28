@@ -2,6 +2,9 @@ from django.shortcuts import render
 import markdown2
 from . import util
 from django.http import HttpResponse
+import random
+import os
+
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -9,7 +12,6 @@ def index(request):
     })
 
 
-  
 # whenever someone adds a title at /wiki/title, will load an html related to that entry
 def loadEntry(request, title):
     if title.casefold() in [entry.casefold() for entry in util.list_entries()]:
@@ -21,7 +23,6 @@ def loadEntry(request, title):
         return render(request, "encyclopedia/404.html", {
             "title" : title
         })
-
 
 
 def searchEntry(request):
@@ -50,8 +51,8 @@ def searchEntry(request):
 
 def create(request):
     return render(request, "encyclopedia/createpage.html")
-    
-    
+
+ 
 def createEntry(request):
     title = request.GET.get('title', '')
     content = request.GET.get('content', '')
@@ -67,4 +68,31 @@ def createEntry(request):
             "title" : title,
             "content" : markdown2.markdown(util.get_entry(title))
         })
-        
+
+
+def randompage(request):
+    randompage = random.choice(util.list_entries())
+    return render(request, "encyclopedia/title.html", {
+        "title" : randompage,
+        "content" : markdown2.markdown(util.get_entry(randompage))
+    })
+    
+def editpage(request, title):
+    return render(request, "encyclopedia/edit.html", {
+        "title" : title, 
+        # not converting to markdown because the user needs to see .md structure
+        "content" : util.get_entry(title)
+    })
+    
+def saveEntry(request):
+    if request.method == "POST":
+        title = request.POST["title"]
+        content = request.POST["content"]
+        f = open(os.path.join('entries/', title + '.md'), 'w')
+        f.seek(0)
+        f.write(content)
+        f.close()
+        return render(request, "encyclopedia/title.html", {
+            "title" : title,
+            "content" : markdown2.markdown(util.get_entry(title))
+        })

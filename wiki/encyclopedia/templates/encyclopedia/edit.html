@@ -1,0 +1,16 @@
+{% extends "encyclopedia/createpage.html" %}
+
+{% block title %}
+Edit Page
+{% endblock %}
+
+{% block body %}
+<h1>Edit Page</h1>
+<form method="POST" action={% url 'saveentry' %}>
+    {% csrf_token %}
+    <h3>{{ title|safe }}</h3>
+    <input type="hidden" name="title" value="{{ title }}">
+    <textarea id="texta" name="content" placeholder="This is where you can write epic details about your title!">{{ content|safe }}</textarea>
+    <input id="submit" type="submit">
+</form>
+{% endblock %}
